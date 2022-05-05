@@ -1,0 +1,87 @@
+//Array con numeros aleatorios enteros entre 1 y 99
+
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+void imprimirmatriz(int **matriz,int filas,int columnas);
+void datopequeno(int **matriz,int f, int c);
+void sumadiagonal(int **matriz,int f, int c);
+void sumaencima(int **matriz,int f, int c);
+
+int main()
+{
+    //defino matriz con doble puntero:
+    int **matriz=nullptr;
+    //defino la cantidad de filas:
+    matriz=new int*[8];
+    //defino la cantidad de columnas:
+    for (int i=0; i<8; i++)
+        matriz[i]=new int[8];
+    //para que el valor aleatorio varie segun el tiempo y tome diferentes valores
+    srand(time(nullptr));
+    //genero valores aleatorios entre 1 y 99
+        //filas
+    for (int f=0; f<8; f++)
+            //columnas
+        for (int c=0; c<8; c++)
+            //primero tomara valores de 0 a 98, por eso se le suma + 1 a
+            //esto hara que tome valores de 1 a 99
+            matriz[f][c]=rand() % 99 +1;
+
+    //Para poder visualizar la matriz:
+    imprimirmatriz(matriz,8,8);
+    datopequeno(matriz,8,8);
+    //suma diagonal, saber que la diagonal es cuando el i==j
+    sumadiagonal(matriz,8,8);
+    //suma de elementos por encima de la diagonal de matriz
+    sumaencima(matriz,8,8);
+
+    //Limpiar los datos:
+    for (int i=0; i<8; i++)
+        delete []matriz[i];
+    delete []matriz;
+    matriz=nullptr;
+
+}
+
+void imprimirmatriz(int **matriz,int filas,int columnas)
+{
+    for (int i=0;i<filas;i++){
+        for (int j=0;j<columnas;j++){
+        //imprime con un espacio de 5
+            cout<< setw(5) << matriz[i][j];
+            }
+        cout<<"\n";
+    }
+}       
+
+void datopequeno(int **matriz,int f, int c)
+{
+    int valorpe;
+    valorpe=matriz[0][0];
+    for (int i=0; i<f; i++)
+        for (int j=0; j<c; j++)
+            if (matriz[i][j]<valorpe)
+                valorpe=matriz[i][j];
+    
+    cout<<"El valor mas pequeno es: "<<valorpe<<endl;
+}
+
+void sumadiagonal(int **matriz,int f, int c)
+{
+    int suma=0;
+    for (int i=0;i<f;i++)
+        suma+=(matriz[i][i]);
+    cout<<"La suma de la diagonal es: "<<suma<<endl;
+}
+
+void sumaencima(int **matriz,int f, int c)
+{
+    int suma=0;
+    for (int i=0;i<f;i++)
+        for (int j=0; j<c;j++)
+            if (j>i)
+                suma+=matriz[i][j];
+    cout<<"La suma de los numeros por encima de la diagonal es: "<<suma<<endl;
+}
