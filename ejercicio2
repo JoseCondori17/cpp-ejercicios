@@ -1,0 +1,76 @@
+//Libreria, hacer analisis de sus ventas
+
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+void mostrarmatriz(int **matriF,int c);
+void matrizsuma(int **matriz,int f,int c,int **matriF);
+void menosventa(int **matriF,int c);
+
+int main(){    
+    int **matriz=nullptr;
+    int **matriF=nullptr;
+    
+    matriz=new int*[7];
+    matriF=new int*[1];
+    //Primera forma de inicializar la matriz:
+    matriz[0]=new int[5]{43,45,50,12,55};
+    matriz[1]=new int[5]{34,19,20,7,6};
+    matriz[2]=new int[5]{15,33,21,8,20};
+    matriz[3]=new int[5]{11,23,67,38,49};
+    matriz[4]=new int[5]{45,32,109,30,27};
+    matriz[5]=new int[5]{3,44,38,15,45};
+    matriz[6]=new int[5]{78,56,77,14,24};
+    //ss: relacion clase
+    matriF[0]=new int[5];
+
+    matrizsuma(matriz,7,5,matriF);
+    //mostrarmatriz(matriF,5);
+    menosventa(matriF,5);
+}
+
+void matrizsuma(int **matriz,int f,int c,int **matriF){
+    int suma;
+    for (int j=0;j<c; j++){
+        suma=0;
+        for (int i=0;i<f;i++){
+            suma+=matriz[i][j];
+        }
+        matriF[0][j]=suma;
+    }            
+}
+
+void mostrarmatriz(int **matriF,int c){
+    for (int i=0;i<c;i++)
+        cout<<setw(5)<< matriF[0][i];
+}
+
+void menosventa(int **matriF,int c){
+    int menor,indice=0;
+    menor=matriF[0][0];
+    for (int i=0;i<c; i++)
+        if (matriF[0][i]<menor)
+            menor=matriF[0][i];
+            indice++;
+            
+    
+    switch(indice){
+        case 0:
+            cout << "Dia con menos venta: Lunes";
+            break;
+        case 1:
+            cout << "Dia con menos venta: Martes";
+            break;
+        case 2:
+            cout << "Dia con menos venta: Miercoles";
+            break;
+        case 3:
+            cout << "Dia con menos venta: Jueves";
+            break;
+        case 4:
+            cout << "Dia con menos venta: Viernes";
+            break;
+    }
+
+}
